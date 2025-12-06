@@ -1,0 +1,101 @@
+Table sedes {
+  id int [pk, increment]
+  nombre varchar(100)
+  ciudad varchar(100)
+  created_at datetime
+  created_by varchar(50)
+  updated_at datetime
+  updated_by varchar(50)
+  active tinyint
+}
+
+Table pacientes {
+  id int [pk, increment]
+  curp varchar(18) [unique]
+  nombre varchar(100)
+  fecha_nacimiento date
+  telefono varchar(20)
+  correo varchar(100)
+  id_sede int
+  created_at datetime
+  created_by varchar(50)
+  updated_at datetime
+  updated_by varchar(50)
+  active tinyint
+}
+
+Table medicos {
+  id int [pk, increment]
+  cedula varchar(20) [unique]
+  nombre varchar(100)
+  especialidad varchar(100)
+  id_sede int
+  created_at datetime
+  created_by varchar(50)
+  updated_at datetime
+  updated_by varchar(50)
+  active tinyint
+}
+
+Table enfermeros {
+  id int [pk, increment]
+  numero_empleado varchar(20) [unique]
+  nombre varchar(100)
+  id_sede int
+  created_at datetime
+  created_by varchar(50)
+  updated_at datetime
+  updated_by varchar(50)
+  active tinyint
+}
+
+Table medicamentos {
+  id int [pk, increment]
+  codigo varchar(20) [unique]
+  nombre varchar(100)
+  presentacion varchar(50)
+  created_at datetime
+  created_by varchar(50)
+  updated_at datetime
+  updated_by varchar(50)
+  active tinyint
+}
+
+Table hospitalizaciones {
+  id int [pk, increment]
+  id_paciente int
+  id_medico int
+  id_enfermero int
+  id_sede int
+  fecha_ingreso datetime
+  fecha_alta datetime
+  diagnostico varchar(255)
+  created_at datetime
+  created_by varchar(50)
+  updated_at datetime
+  updated_by varchar(50)
+  active tinyint
+}
+
+Table administracion_medicamentos {
+  id int [pk, increment]
+  id_hospitalizacion int
+  id_medicamento int
+  fecha_administracion datetime
+  dosis varchar(50)
+  created_at datetime
+  created_by varchar(50)
+  updated_at datetime
+  updated_by varchar(50)
+  active tinyint
+}
+
+Ref: pacientes.id_sede > sedes.id
+Ref: medicos.id_sede > sedes.id
+Ref: enfermeros.id_sede > sedes.id
+Ref: hospitalizaciones.id_paciente > pacientes.id
+Ref: hospitalizaciones.id_medico > medicos.id
+Ref: hospitalizaciones.id_enfermero > enfermeros.id
+Ref: hospitalizaciones.id_sede > sedes.id
+Ref: administracion_medicamentos.id_hospitalizacion > hospitalizaciones.id
+Ref: administracion_medicamentos.id_medicamento > medicamentos.id
